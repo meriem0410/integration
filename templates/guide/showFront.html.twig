@@ -1,0 +1,69 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Guide{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <img src="{{ asset('Images/' ~ guide.image ) }}" class="img-fluid mb-4" alt="Guide Image">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;">{{ guide.nom }} {{ guide.prenom }}</h5>
+                    <p class="card-text" style="color: black;">Téléphone: {{ guide.numTel }}</p>
+                    <p class="card-text" style="color: black;">Disponibilité: {{ guide.disponibilite ? 'Oui' : 'Non' }}</p>
+                    <p class="card-text" style="color: black;"><a class="glyphicon glyphicon-thumbs-up" href="{{ path('Thumbs_up', {'id': guide.id}) }}"></a> {{guide.Likes}}                            <a class="glyphicon glyphicon-thumbs-down" href="{{ path('Thumbs_Down', {'id': guide.id}) }}"></a> {{guide.Dislikes}}    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h2 class="mb-4" style="color: green;">Excursions</h2>
+            <div class="row">
+                    {% for excursion in excursions %}
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <!-- Excursion details -->
+                                    <h5 class="card-title" style="color: black;">{{ excursion.titre }}</h5>
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" src="{{ asset('Video/' ~ excursion.video) }}" allowfullscreen></iframe>
+                                    </div>
+                                    <p class="card-text mt-2" style="color: black;">{{ excursion.description }}</p>
+                                    <p class="card-text" style="color: black;">Ville: {{ excursion.ville }}</p>
+                                    <div id="map_{{ excursion.id }}" style="height: 300px;"></div> <!-- Unique ID for each map -->
+                                    <script>
+                                        var map_{{ excursion.id }} = L.map('map_{{ excursion.id }}').setView([{{ excursion.latitude }}, {{ excursion.longitude }}], 5);
+                                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                            maxZoom: 19,
+                                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                                        }).addTo(map_{{ excursion.id }});
+
+                                        var marker = L.marker([{{ excursion.latitude }}, {{ excursion.longitude }}]).addTo(map_{{ excursion.id }});
+                                        var circle = L.circle([{{ excursion.latitude }}, {{ excursion.longitude }}], {
+                                            color: 'red',
+                                            fillColor: '#f03',
+                                            fillOpacity: 0.5,
+                                            radius: 50000
+                                        }).addTo(map_{{ excursion.id }});
+                                        marker.bindPopup("Excursion: {{ excursion.titre }}").openPopup();
+                                        circle.bindPopup("Center: [{{ excursion.latitude }}, {{ excursion.longitude }}]");
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="col-md-12">Aucune excursion disponible.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

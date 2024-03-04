@@ -1,0 +1,30 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}New Guide{% endblock %}
+{% block stylesheets %} {% endblock %}
+
+{% block content %}
+    <h1>Create new Guide</h1>
+
+   {{ form_start(form, {'attr' : {'novalidate':'novalidate'}}) }}
+
+
+           {{form_label(form.nom)}}
+           {{form_widget(form.nom,{'attr':{'class':'form-control'}})}}
+           <div class="text-danger">{{ form_errors(form.nom)}}</div>
+                      {{form_label(form.prenom)}}
+           {{form_widget(form.prenom,{'attr':{'class':'form-control'}})}}
+           <div class="text-danger">{{ form_errors(form.prenom)}}</div>
+                      {{form_label(form.num_tel)}}
+           {{form_widget(form.num_tel,{'attr':{'class':'form-control'}})}}
+           <div class="text-danger">{{ form_errors(form.num_tel)}}</div>
+            {{form_label(form.disponibilite)}}
+           {{form_widget(form.disponibilite,{'attr':{'class':'form-control'}})}}
+           <div class="text-danger">{{ form_errors(form.disponibilite)}}</div>
+                      {{form_label(form.image)}}
+           {{form_widget(form.image,{'attr':{'class':'form-control'}})}}
+                    
+{{ form_end(form) }}
+
+    <a href="{{ path('app_guide_index') }}">back to list</a>
+{% endblock %}

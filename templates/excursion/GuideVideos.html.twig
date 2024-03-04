@@ -1,0 +1,43 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Excursion index{% endblock %}
+{% block stylesheets %} {% endblock %}
+
+{% block content %}
+    <h1>Excursion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Ville</th>
+                <th>Video</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for excursion in excursions %}
+            <tr>
+                <td>{{ excursion.id }}</td>
+                <td>{{ excursion.titre }}</td>
+                <td>{{ excursion.description }}</td>
+                <td>{{ excursion.ville }}</td>
+                <td>
+                <iframe width="560" height="315" src="{{ asset('Video/' ~ excursion.video) }}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </td>
+                <td>
+                    <a href="{{ path('app_excursion_index', {'id': excursion.id}) }}">show</a>
+                    <a href="{{ path('app_excursion_edit', {'id': excursion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

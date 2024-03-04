@@ -1,0 +1,35 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Excursion{% endblock %}
+{% block stylesheets %} {% endblock %}
+
+{% block content %}
+    <h1>Excursion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ excursion.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ excursion.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ excursion.description }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ excursion.ville }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_excursion_index') }}">back to list</a>
+
+    <a href="{{ path('app_excursion_edit', {'id': excursion.id}) }}">edit</a>
+
+    {{ include('excursion/_delete_form.html.twig') }}
+{% endblock %}

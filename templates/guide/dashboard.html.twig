@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if guides is not empty %}
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for guide in guides %}
+                    <div class="swiper-slide">
+                        <a href="{{ path('app_guide_showFront', {'id': guide.id}) }}">
+                            <div class="card">
+                                <img class="card-img-top" src="{{ asset('Images/' ~ guide.image ) }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h3 class="card-title"><strong>{{ guide.nom }} {{ guide.prenom }}</strong></h3>
+                                    <h4 class="card-title">Video Count: {{ guide.videoCount }}</h4>
+                                    <h4 class="card-title">Likes: <i class="glyphicon glyphicon-thumbs-up">{{ guide.Likes }}</i></h4>
+                                    <h4 class="card-title">Dislikes: <i class="glyphicon glyphicon-thumbs-down">{{ guide.Dislikes }}</i></h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    {% else %}
+        <p>No records found</p>
+    {% endif %}
+{% endblock %}

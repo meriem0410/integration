@@ -1,0 +1,88 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Guide index{% endblock %}
+
+
+{% block content %}
+    <h1>Guide index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>image</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Num_tel</th>
+                <th>Disponibilite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guide in guides %}
+            <tr>
+                <td>{{ guide.id }} </td>
+                <td>
+                  <img src="{{ asset('Images/' ~  guide.image ) }}" alt="Product Thumb" ></td>
+                <td>{{ guide.nom }}</td>
+                <td>{{ guide.prenom }}</td>
+                <td>{{ guide.numTel }}</td>
+                <td>{{ guide.disponibilite ? 'Yes' : 'No' }}</td>
+                <td>  
+                    {{ include('guide/_delete_form.html.twig') }}
+                    <a href="{{ path('app_guide_show', {'id': guide.id}) }}">show</a>
+                    <a href="{{ path('app_guide_edit', {'id': guide.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_guide_new') }}">Create new</a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <canvas id="myChart"></canvas>
+    <script>
+        var data = {{ data|json_encode|raw }};
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(function(d) { return d.nom + ' ' + d.prenom }),
+                datasets: [
+                    {
+                        label: 'Likes',
+                        data: data.map(function(d) { return d.Likes }),
+                        backgroundColor: '#FF6384',
+                    },
+                    {
+                        label: 'Dislikes',
+                        data: data.map(function(d) { return d.Dislikes }),
+                        backgroundColor: '#36A2EB',
+                    },
+                    {
+                        label: 'Nombre de video',
+                        data: data.map(function(d) { return d.videoCount }),
+                        backgroundColor: 'yellow',
+                    }
+                ],
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+
+{% endblock %}
