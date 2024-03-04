@@ -1,0 +1,9 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+generate_qr_code:
+    path: /generate_qr_code
+    controller: App\Controller\HebergementController::generateQrCode
+    methods: [POST]

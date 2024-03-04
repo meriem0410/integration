@@ -1,0 +1,119 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Hebergement index{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block content %}
+    <h1>Hebergement index</h1>
+
+     {{ form_start(searchForm, {'action': path('Hebergement_search'), 'method': 'GET'}) }}
+    {{ form_row(searchForm.search) }} {# Assurez-vous que 'search' est le nom de la propriété dans votre objet SearchData #}
+    <button type="submit" class="btn btn-primary">Search</button>
+{{ form_end(searchForm) }}
+    {% if isSearchResult is defined and isSearchResult %}
+        <h2>Résultats de recherche</h2>
+        {# Vous pouvez ajouter ici d'autres éléments spécifiques aux résultats de recherche #}
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Adresse</th>
+                <th>Type</th>
+                <th>Prix par nuitée</th>
+                <th>Capacité</th>
+                <th>Nb de chambres</th>
+                <th>Description</th>
+              
+                <th>Amenitites</th>
+                <th>Images</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for Hebergement in Hebergements %}
+            <tr>
+                <td>{{ Hebergement.id }}</td>
+                <td>{{ Hebergement.adresse }}</td>
+                <td>{{ Hebergement.type }}</td>
+                <td>{{ Hebergement.prix }}DT</td>
+                <td>{{ Hebergement.maxguest }}</td>
+                <td>{{ Hebergement.room }}</td>
+                <td>{{ Hebergement.description }}</td>
+                <td>
+    <ul>
+       
+            
+    </ul> 
+               </td>
+               <td>
+    <ul>
+        {% for amenity in Hebergement.amenities %}
+            <li>{{ amenity }}</li>
+        {% endfor %}
+    </ul>
+            </td>
+            <td>
+    {% if Hebergement.image %}
+        <img src="{{ asset('uploads/' ~ Hebergement.image) }}" width="50%"/>
+    {% endif %}
+</td>   
+           
+                <td>
+                    <a href="{{ path('app_Hebergement_show', {'id': Hebergement.id}) }}">show</a>
+                    <a href="{{ path('app_Hebergement_edit', {'id': Hebergement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_Hebergement_new') }}">Create new</a>
+<canvas id="ratingsChart"></canvas>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('ratingsChart').getContext('2d');
+    var ratingLabels = JSON.parse('{{ ratingLabels|raw }}');
+    var ratingData = JSON.parse('{{ ratingData|raw }}');
+    var myChart = new Chart(ctx, {
+        type: 'pie', // ou 'bar', 'line', etc. selon le type de graphique que vous souhaitez
+        data: {
+            labels: ratingLabels,
+            datasets: [{
+                label: 'Nombre d\'avis par rating',
+                data: ratingData,
+                backgroundColor: [
+                    // Ajoutez ici vos couleurs
+                    'rgba(54, 162, 235, 0.2)', // Bleu
+    'rgba(255, 206, 86, 0.2)', // Jaune
+    'rgba(75, 192, 192, 0.2)', // Vert
+    'rgba(153, 102, 255, 0.2)', // Violet
+    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    // Ajoutez ici les bordures de vos couleurs
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Répartition des avis par rating'
+            }
+        }
+    });
+});
+</script>
+
+   
+{% endblock %}

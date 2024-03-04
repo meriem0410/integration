@@ -1,0 +1,14 @@
+{% extends '/base_back.html.twig' %}
+
+{% block title %}Edit Hebergement{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block content %}
+    <h1>Edit Hebergement</h1>
+
+    {{ include('Hebergement/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_Hebergement_index') }}">back to list</a>
+
+    {{ include('Hebergement/_delete_form.html.twig') }}
+{% endblock %}

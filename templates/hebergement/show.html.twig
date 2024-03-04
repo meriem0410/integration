@@ -1,0 +1,73 @@
+{% extends '/base_back.html.twig' %}
+
+{% block title %}Hebergement{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+{% block content %}
+    <h1>Hebergement</h1>
+      
+<form action="{{ path('generate_qr_code') }}" method="post">
+    <input type="hidden" name="id" value="{{ Hebergement.id }}" />
+    <input type="hidden" name="text" value="
+        Description: {{ Hebergement.description }}\n
+        Prix: {{ Hebergement.prix }}\n
+        Maxguest: {{ Hebergement.maxguest }}\n
+        Adresse: {{ Hebergement.adresse }}\n
+    ">
+    <button type="submit">Générer QR Code</button>
+</form>
+      
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ Hebergement.id }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ Hebergement.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ Hebergement.type }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ Hebergement.prix }}</td>
+            </tr>
+            <tr>
+                <th>Maxguest</th>
+                <td>{{ Hebergement.maxguest }}</td>
+            </tr>
+            <tr>
+                <th>Room</th>
+                <td>{{ Hebergement.room }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ Hebergement.description }}</td>
+            </tr>
+            <tr>
+                <th>Amenitites</th>
+                <td>
+                <ul>
+                    {% for amenities in Hebergement.amenities %}
+                        <li>{{ amenities }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <tr>
+            <th>images</th>
+             <td>
+            <img src ={{ asset ('uploads/' ~Hebergement.image)}} width = "100%"/>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_Hebergement_index') }}">back to list</a>
+
+    <a href="{{ path('app_Hebergement_edit', {'id': Hebergement.id}) }}">edit</a>
+
+    
+{% endblock %}

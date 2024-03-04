@@ -1,0 +1,59 @@
+{{SearchData}}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Adresse</th>
+                <th>Type</th>
+                <th>Prix par nuitée</th>
+                <th>Capacité</th>
+                <th>Nb de chambres</th>
+                <th>Description</th>
+              
+                <th>Amenitites</th>
+                <th>Images</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for Hebergement in Hebergements %}
+            <tr>
+                <td>{{ Hebergement.id }}</td>
+                <td>{{ Hebergement.adresse }}</td>
+                <td>{{ Hebergement.type }}</td>
+                <td>{{ Hebergement.prix }}DT</td>
+                <td>{{ Hebergement.maxguest }}</td>
+                <td>{{ Hebergement.room }}</td>
+                <td>{{ Hebergement.description }}</td>
+                <td>
+    <ul>
+       
+            
+    </ul> 
+               </td>
+               <td>
+    <ul>
+        {% for amenity in Hebergement.amenities %}
+            <li>{{ amenity }}</li>
+        {% endfor %}
+    </ul>
+            </td>
+            <td>
+    {% if Hebergement.image %}
+        <img src="{{ asset('uploads/' ~ Hebergement.image) }}" width="50%"/>
+    {% endif %}
+</td>   
+           
+                <td>
+                    <a href="{{ path('app_Hebergement_show', {'id': Hebergement.id}) }}">show</a>
+                    <a href="{{ path('app_Hebergement_edit', {'id': Hebergement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
