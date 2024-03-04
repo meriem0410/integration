@@ -1,0 +1,12 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}New Res{% endblock %}
+
+{% block content %}
+    <h1>Create new Res</h1>
+
+    {{ include('res/_form.html.twig') }}
+
+    <a href="{{ path('app_test') }}">back </a>
+    
+{% endblock %}

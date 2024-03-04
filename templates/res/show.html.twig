@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Res{% endblock %}
+
+{% block body %}
+    <h1>Res</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Nombre de personnes </th>
+                <td>{{ re.nombre }}</td>
+            </tr>
+            <tr>
+                <th> Pays d'origine</th>
+                <td>{{ re.origine }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ re.age }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_res_index') }}">back to list</a>
+
+    <a href="{{ path('app_res_edit', {'id': re.id}) }}">edit</a>
+
+    {{ include('res/_delete_form.html.twig') }}
+{% endblock %}

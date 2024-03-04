@@ -1,0 +1,34 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Modifier un Voyage{% endblock %}
+
+{% block content %}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title" style="color: #D0A343;">Modifier un voyage</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: #94BDB5;">
+          <li class="breadcrumb-item"><a href="#" style="color: #4F818C;">Voyage</a></li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: #4F818C;">Modifier</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-8 grid-margin stretch-card">
+        <div class="card" style="border-color: #4F818C;">
+          <div class="card-body">
+            <h4 class="card-title" style="color: #D0A343;">Modifier le voyage</h4>
+            {{ include('voyage/_form.html.twig', {'button_label': 'Modifier'}) }}
+            <a href="{{ path('app_voyage_index') }}" class="btn btn-secondary" style="background-color: #D0A343; border-color: #D0A343;">Retour à la liste</a>
+            {{ include('voyage/_delete_form.html.twig') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <!-- Contenu du pied de page -->
+  </footer>
+</div>
+{% endblock %}

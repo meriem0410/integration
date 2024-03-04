@@ -1,0 +1,28 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}Hermes Voyages {% endblock %}
+
+
+{% block content%}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Détails du programme de voyage</title>
+</head>
+<body>
+    <h1>Détails du programme de voyage</h1>
+    {% if programme %}
+        <h2>{{ programme.activite }}</h2>
+        <p>{{ programme.datedepart ? programme.datedepart|date('Y-m-d') : '' }}</p>
+        <p>{{ programme.dateretour ? programme.dateretour|date('Y-m-d') : '' }}</p>
+        <h3>Description :</h3>
+        <p>{{ programme.description }}</p>
+        <!-- Ajoutez ici d'autres détails du programme selon vos besoins -->
+    {% else %}
+        <p>Aucun programme trouvé pour cet ID.</p>
+    {% endif %}
+</body>
+</html>
+{% endblock %}
+   

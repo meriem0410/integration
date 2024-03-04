@@ -1,0 +1,87 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Res index{% endblock %}
+
+{% block content %}
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title" style="color: #D0A343;">Liste des réservations</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: #94BDB5;">
+          <li class="breadcrumb-item"><a href="#" style="color: #4F818C;">Réservation</a></li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: #4F818C;">Liste</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-10 grid-margin stretch-card">
+        <div class="card" style="border-color: #4F818C;">
+          <div class="card-body">
+            <!-- Champ de recherche -->
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="search_input" placeholder="Rechercher...">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Rechercher</button>
+              </div>
+            </div>
+            <h4 class="card-title" style="color: #D0A343;">Liste des réservations</h4>
+            <table id="myTable" class="table">
+              <thead>
+                <tr>
+                 <th>Mail</th>
+                  <th>Nombre de personnes</th>
+                  <th>Origine</th>
+                  <th>Age</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for re in res %}
+                <tr>
+                 <td>{{ re.mail }}</td>
+                  <td>{{ re.nombre }}</td>
+                  <td>{{ re.origine }}</td>
+                  <td>{{ re.age }}</td>
+                  <td>
+                    <a href="{{ path('app_res_show', {'id': re.id}) }}" class="btn btn-primary">Afficher</a>
+                    <a href="{{ path('app_res_edit', {'id': re.id}) }}" class="btn btn-secondary">Modifier</a>
+                    {% if not re.confirmed %}
+                    <a href="{{ path('confirm_reservation', {'id': re.id}) }}" class="btn btn-success">Confirmer</a>
+                    {% else %}
+                    <a href="{{ path('cancel_reservation', {'id': re.id}) }}" class="btn btn-danger">Annuler</a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% else %}
+                <tr>
+                  <td colspan="5">Aucun enregistrement trouvé</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <!-- Contenu du pied de page -->
+  </footer>
+</div>
+
+<!-- Assurez-vous d'inclure jQuery avant votre script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#search_input").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tbody tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+{% endblock %}
