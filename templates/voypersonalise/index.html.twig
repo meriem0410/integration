@@ -1,0 +1,85 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Liste des Voyages pérsonalisés{% endblock %}
+
+{% block content %}
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title" style="color: #D0A343;">Liste des Voyages pérsonalisés</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: #94BDB5;">
+          <li class="breadcrumb-item"><a href="#" style="color: #4F818C;">Voyage</a></li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: #4F818C;">Liste</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-10 grid-margin stretch-card">
+        <div class="card" style="border-color: #4F818C;">
+          <div class="card-body">
+            <h4 class="card-title" style="color: #D0A343;">Liste des voyages personnalisés</h4>
+            <!-- Champ de recherche -->
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="search_input" placeholder="Rechercher...">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Rechercher</button>
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                 
+                  <th>Destination</th>
+                  <th>Saison</th>
+                  <th>Date</th>
+                  <th>Email</th>
+                  <th>Suggestion</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="myTable">
+                {% for voypersonalise in voypersonalises %}
+                <tr>
+                 
+                  <td>{{ voypersonalise.destination }}</td>
+                  <td>{{ voypersonalise.saison }}</td>
+                  <td>{{ voypersonalise.date ? voypersonalise.date|date('Y-m-d') : '' }}</td>
+                  <td>{{ voypersonalise.email }}</td>
+                  <td>{{ voypersonalise.act }}</td>
+                  <td>
+                    <a href="{{ path('app_voypersonalise')}}" class="btn btn-info" style="background-color: #D0A343; border-color: #D0A343;">Afficher</a>
+                   
+                  </td>
+                </tr>
+                {% else %}
+                <tr>
+                  <td colspan="7">Aucun enregistrement trouvé</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Assurez-vous d'inclure jQuery avant votre script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#search_input").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+
+{% endblock %}

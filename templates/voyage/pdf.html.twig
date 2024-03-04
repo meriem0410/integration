@@ -1,0 +1,24 @@
+<!-- voyage/pdf.html.twig -->
+<h1>Liste des voyages</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Destination</th>
+            <th>Prix</th>
+            <th>Date</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for voyage in voyage %}
+            <tr>
+                <td>{{ voyage.id }}</td>
+                <td>{{ voyage.destination }}</td>
+                <td>{{ voyage.prix }}</td>
+                <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+                <td>{{ voyage.type }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

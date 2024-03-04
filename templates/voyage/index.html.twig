@@ -1,0 +1,92 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Liste des Voyages{% endblock %}
+{% block sidebar %} {% endblock %} 
+{% block content %}
+
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title" style="color: #D0A343;">Liste des voyages</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: #94BDB5;">
+          <li class="breadcrumb-item"><a href="#" style="color: #4F818C;">Voyage</a></li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: #4F818C;">Liste</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-10 grid-margin stretch-card">
+        <div class="card" style="border-color: #4F818C;">
+          <div class="card-body">
+            <!-- Champ de recherche -->
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="search_input" placeholder="Rechercher...">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Rechercher</button>
+              </div>
+            </div>
+            <h4 class="card-title" style="color: #D0A343;">Liste des voyages</h4>
+            <table id="myTable" class="table">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Destination</th>
+                  <th>Prix</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for voyage in voyages %}
+                <tr>
+                  <td>{{ voyage.id }}</td>
+                  <td>{{ voyage.destination }}</td>
+                  <td>{{ voyage.prix }}</td>
+                  <td>{{ voyage.date ? voyage.date|date('Y-m-d') : '' }}</td>
+                  <td>{{ voyage.type }}</td>
+                  <td>
+                    <a href="{{ path('app_voyage_show', {'id': voyage.id}) }}" class="btn btn-info" style="background-color: #D0A343; border-color: #D0A343;">Afficher</a>
+                    <a href="{{ path('app_voyage_edit', {'id': voyage.id}) }}" class="btn btn-primary" style="background-color: #D0A343; border-color: #D0A343;">Modifier</a>
+                  </td>
+                </tr>
+                {% else %}
+                <tr>
+                  <td colspan="6">Aucun enregistrement trouvé</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <a href="{{ path('app_voyage_new') }}" class="btn btn-success" style="background-color: #D0A343; border-color: #D0A343;">Créer un nouveau voyage</a>
+
+            <!-- Bouton d'impression -->
+            <a id="btnPrint" class="btn btn-primary" style="background-color: #D0A343; border-color: #D0A343;" href="{{path('app_voyage_pdf')}}"> Imprimer </a>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <!-- Contenu du pied de page -->
+  </footer>
+</div>
+
+<!-- Assurez-vous d'inclure jQuery avant votre script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#search_input").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+{% endblock %}

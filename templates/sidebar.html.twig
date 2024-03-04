@@ -1,0 +1,48 @@
+<div class="container-scroller">
+  <nav class="sidebar sidebar-offcanvas active" id="sidebar" style="background-color: #FAFBFC; color: #fff; padding: 20px;">
+    <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
+      <a class="sidebar-brand brand-logo" href="#"> 
+        <!-- Ajoutez le logo de votre marque ici si nécessaire -->
+      </a>
+    </div>
+    <ul class="nav">
+      <li class="nav-item nav-profile">
+        <!-- Ajoutez le profil de l'utilisateur ici si nécessaire -->
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="mdi mdi-home menu-icon"></i>
+          <span class="menu-title"> Accueil</span>
+        </a>
+      </li>
+      <!-- Autres éléments de la barre latérale ici -->
+      <!-- ... -->
+      <!-- Liens de gestion des voyages -->
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#gestion-voyage" aria-expanded="true" aria-controls="gestion-voyage">
+          <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+          <span class="menu-title">Gestion Voyage </span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse show" id="gestion-voyage" style="">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_voyage_new') }}">Ajouter Un Voyage </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_voyage_index') }}"> Liste des voyages</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_programme_new') }}">Ajouter un programme </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_programme_index') }}"> Liste des programme </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <!-- Autres éléments de la barre latérale ici -->
+      <!-- ... -->
+    </ul>
+  </nav>
+</div>
