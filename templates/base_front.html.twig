@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Hermes Voyage{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+    <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+    <meta name="author" content="FREEHTML5.CO" />
+
+
+    <!-- Facebook and Twitter integration -->
+
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="{{ asset('front_office/favicon.ico') }}">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+    {% block stylesheets %}
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="{{ asset('front_office/css/animate.css') }}">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="{{ asset('front_office/css/icomoon.css') }}">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="{{ asset('front_office/css/bootstrap.css') }}">
+    <!-- Superfish -->
+    <link rel="stylesheet" href="{{ asset('front_office/css/superfish.css') }}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{ asset('front_office/css/magnific-popup.css') }}">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{{ asset('front_office/css/bootstrap-datepicker.min.css') }}">
+    <!-- CS Select -->
+    <link rel="stylesheet" href="{{ asset('front_office/css/cs-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('front_office/css/cs-skin-border.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('front_office/css/style.css') }}">
+
+    <!-- Modernizr JS -->
+    <script src="{{ asset('front_office/js/modernizr-2.6.2.min.js') }}"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('front_office/js/respond.min.js') }}"></script>
+    <![endif]-->
+    {% endblock %}
+</head>
+
+<body>
+    {% block body %}
+    <div id="fh5co-wrapper">
+        <div id="fh5co-page">
+
+            <header id="fh5co-header-section" class="sticky-banner">
+                <div class="container">
+                    <div class="nav-header">
+                        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+                        <h1 id="fh5co-logo"><a href="{{ asset('front_office/index.html') }}"><i class="icon-airplane"></i>Hermes Voyage</a></h1>
+                        <!-- START #fh5co-menu-wrap -->
+                        <nav id="fh5co-menu-wrap" role="navigation">
+                            <ul class="sf-menu" id="fh5co-primary-menu">
+                                <li class="active"><a href="{{ asset('front_office/index.html') }}">Acceuil</a></li>
+                                <li>
+                                    <a href="{{ asset('front_office/vacation.html') }}" class="fh5co-sub-ddown">Voyages organisés</a>
+                                
+                                </li>
+                                <li><a href="{{ asset('front_office/flight.html') }}">Transport</a></li>
+                                <li><a href="{{ asset('front_office/hotel.html') }}">Hebergement</a></li>
+                                <li><a href="{{ asset('front_office/car.html') }}">E-tourism</a></li>
+                                <li><a href="{{ asset('front_office/blog.html') }}">Evenement</a></li>
+                                <li><a href="{{path('random_fact')}}">Fun Facts</a></li>
+                                {% if app.session.get('id') is defined and app.session.get('id') is not null %}
+
+                                <li><a href="{{path('app_logout')}}">Log Out</a></li>
+                                {% else %} 
+                                <li><a href="{{path('login')}}">Log In</a></li>
+                                {% endif %}
+                                {% if app.session.get('role') =='admin' %}
+
+                                <li><a href="{{path('app_user_index')}}">dashboard</a></li>
+                                {% endif %}
+                                
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </header>
+           
+
+            <!-- end:header-top -->
+        
+            
+                                <!-- Rest of the content -->
+                                {% block content %} {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% block footer %}
+                <footer>
+			<div id="footer">
+				<div class="container">
+					<div class="row row-bottom-padded-md">
+						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
+							<h3>About Travel</h3>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
+							<h3>Top Flights Routes</h3>
+							<ul>
+								<li><a href="#">Manila flights</a></li>
+								<li><a href="#">Dubai flights</a></li>
+								<li><a href="#">Bangkok flights</a></li>
+								<li><a href="#">Tokyo Flight</a></li>
+								<li><a href="#">New York Flights</a></li>
+							</ul>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
+							<h3>Top Hotels</h3>
+							<ul>
+								<li><a href="#">Boracay Hotel</a></li>
+								<li><a href="#">Dubai Hotel</a></li>
+								<li><a href="#">Singapore Hotel</a></li>
+								<li><a href="#">Manila Hotel</a></li>
+							</ul>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
+							<h3>Interest</h3>
+							<ul>
+								<li><a href="#">Beaches</a></li>
+								<li><a href="#">Family Travel</a></li>
+								<li><a href="#">Budget Travel</a></li>
+								<li><a href="#">Food &amp; Drink</a></li>
+								<li><a href="#">Honeymoon and Romance</a></li>
+							</ul>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
+							<h3>Best Places</h3>
+							<ul>
+								<li><a href="#">Boracay Beach</a></li>
+								<li><a href="#">Dubai</a></li>
+								<li><a href="#">Singapore</a></li>
+								<li><a href="#">Hongkong</a></li>
+							</ul>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
+							<h3>Affordable</h3>
+							<ul>
+								<li><a href="#">Food &amp; Drink</a></li>
+								<li><a href="#">Fare Flights</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 text-center">
+							<p class="fh5co-social-icons">
+								<a href="#"><i class="icon-twitter2"></i></a>
+								<a href="#"><i class="icon-facebook2"></i></a>
+								<a href="#"><i class="icon-instagram"></i></a>
+								<a href="#"><i class="icon-dribbble2"></i></a>
+								<a href="#"><i class="icon-youtube"></i></a>
+							</p>
+							<p>Copyright 2016 Free Html5 <a href="#">Module</a>. All Rights Reserved. <br>Made with <i class="icon-heart3"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+            {% endblock %}
+            </div>
+
+
+            </div>
+             
+ {% endblock %} 
+</body>
+</html>

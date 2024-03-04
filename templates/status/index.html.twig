@@ -1,0 +1,28 @@
+{% extends 'base_front.html.twig' %}
+
+
+
+{% block content %}
+
+    <div class="container">
+        <h1>Welcome to the Home Page</h1>
+        
+{% if app.session.get('id') is defined and app.session.get('id') is not null %}
+
+            <p>You are currently connected as:</p><br>
+             username : {{ app.session.get('username') }} <br>
+                email : ({{ app.session.get('email') }})</p>
+            <form action="{{ path('app_logout') }}" method="post">
+                <button type="submit">Disconnect</button>
+            </form>
+        {% else %}
+            <p>You are currently not connected .</p>
+            <form action="{{ path('login') }}" method="post">
+                <button type="submit">Connect</button>
+            </form>
+        {% endif %}
+    </div>
+
+    
+    
+{% endblock %}

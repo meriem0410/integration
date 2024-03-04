@@ -1,0 +1,59 @@
+{% extends 'base_front.html.twig' %}
+{% block content %}
+{% if app.session.get('isBanned') == 1 %} 
+                <p>This account is banned.</p>
+                <form action="{{ path('app_logout') }}" method="post">
+                    <button type="submit">Disconnect</button>
+                </form>
+{% else %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Country Facts</title>
+  <style>
+    h1, p {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Random Country Facts</h1>
+<p id="country-fact">Click the button below to view a random country fact!</p>
+<button id="show-fact">Show a new fact</button>
+
+<script>
+  var factPlaceholder = document.getElementById("country-fact");
+  var showFact = document.getElementById("show-fact");
+
+  var randomCountry = JSON.parse('{{ randomCountry|json_encode|raw }}');
+
+  function randomFact(){
+    var languages = randomCountry.languages.join(', ');
+    var facts = [
+      randomCountry.name + " is located in " + randomCountry.region + ".",
+      "The capital of " + randomCountry.name + " is " + randomCountry.capital + ".",
+      "The population of " + randomCountry.name + " is approximately " + randomCountry.population + " people.",
+      randomCountry.name + " has " + languages.split(', ').length + " official language(s), including " + languages + ".",
+      randomCountry.name + "'s currency is " + randomCountry.currencies[0].name + " (" + randomCountry.currencies[0].code + ").",
+      "The calling code for " + randomCountry.name + " is +" + randomCountry.callingCodes[0] + ".",
+      randomCountry.name + "'s area is " + randomCountry.area + " square kilometers.",
+      "The government type of " + randomCountry.name + " is " + randomCountry.government + ".",
+      randomCountry.name + "'s domain extension is " + randomCountry.topLevelDomain.join(', ') + "."
+    ];
+    
+    // Generate a random index to select a random country fact
+    var randomIndex = Math.floor(Math.random() * facts.length);
+    return facts[randomIndex];
+  }
+
+  showFact.addEventListener('click', function(){
+    factPlaceholder.textContent = randomFact();
+  });
+</script>
+
+</body>
+</html>
+{% endif %}
+{% endblock %}
